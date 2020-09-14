@@ -1,8 +1,12 @@
-import React from 'react';
-import './App.css';
+import React, { Fragment } from 'react';
+import List from './pages/List';
 
 function App() {
-	return <div className="App">Hello!</div>;
+	return (
+		<Fragment>
+			<List />
+		</Fragment>
+	);
 }
 
 export default App;

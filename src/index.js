@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import { stores } from './stores';
+
+export const StoreContext = React.createContext();
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<StoreContext.Provider value={stores}>
+			<App />
+		</StoreContext.Provider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );
