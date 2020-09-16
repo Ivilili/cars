@@ -1,6 +1,6 @@
 {
-  "short_name": "Cars App",
-  "name": "Cars App with Mob",
+  "short_name": "Mono Vehicles App",
+  "name": "Mono Vehicles App with React and Mobx",
   "icons": [
     {
       "src": "favicon.ico",

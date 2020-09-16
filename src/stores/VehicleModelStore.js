@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-export const VehicleModel = observable([
+export const VehicleModelStore = observable([
 	{
 		year: 2016,
 		id: 1,
