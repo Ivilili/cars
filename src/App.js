@@ -1,15 +1,35 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
+import { observer } from 'mobx-react';
 import List from './pages/List';
-import './App.css';
+import Pagination from './components/Pagination';
+import { StoreContext } from './index';
 
-function App() {
+const App = observer(() => {
+	const store = useContext(StoreContext);
+
+	useEffect(
+		() => {
+			store.fetchData();
+		},
+		[ store ]
+	);
+
+	const paginate = (pageNumber) => {
+		store.currentPage = pageNumber;
+	};
+
+	const indexOfLastCar = store.currentPage * store.carsPerPage;
+	const indexOfFirstCar = indexOfLastCar - store.carsPerPage;
+	const currentCars = store.data.slice(indexOfFirstCar, indexOfLastCar);
+
+	console.log(currentCars);
+
 	return (
 		<Fragment>
-			<h1 className="main_title">Mono Vehicles</h1>
-			<p className="main_desc">Simple application with React and Mobx</p>
-			<List />
+			<List cars={currentCars} />
+			<Pagination carsPerPage={store.carsPerPage} totalCars={store.totalCars} paginate={paginate} />
 		</Fragment>
 	);
-}
+});
 
 export default App;
