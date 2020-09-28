@@ -43,17 +43,6 @@ h4 {
 	color: #ffffff;
 }
 
-.edit-btn {
-	border-color: #8fc866;
-	color: #8fc866;
-	margin: 0.5rem;
-}
-
-.edit-btn:hover {
-	background-color: #8fc866;
-	color: #ffffff;
-}
-
 .add-btn {
 	border-color: #23415a;
 	color: #23415a;

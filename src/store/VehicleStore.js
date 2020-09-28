@@ -24,14 +24,6 @@ class VehicleStore {
 		await firebase.firestore().collection('VehicleMake').doc(id).delete().catch((err) => {
 			console.error(err);
 		});
-		console.log('car deleted');
-	};
-
-	onEdit = async (updatedCar) => {
-		await firebase.firestore().collection('VehicleMake').doc(updatedCar.id).update(updatedCar).catch((err) => {
-			console.error(err);
-		});
-		console.log('car updated');
 	};
 
 	get filtered() {
