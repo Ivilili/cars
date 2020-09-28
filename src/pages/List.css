@@ -6,12 +6,62 @@ body {
 	background-color: #ededed;
 }
 
+a {
+	text-decoration: none;
+	color: #23415a;
+}
+
+button {
+	color: #ffffff;
+	background: none;
+	border: 2px solid;
+	height: 26px;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 10px;
+	margin-right: 1rem;
+	cursor: pointer;
+}
+
 h1,
 h2,
 h3,
 h4 {
 	color: #23415a;
 	font-weight: 500;
+}
+
+.delete-btn {
+	border-color: #e1332d;
+	color: #e1332d;
+	margin: 0.5rem;
+}
+
+.delete-btn:hover {
+	background-color: #e1332d;
+	color: #ffffff;
+}
+
+.edit-btn {
+	border-color: #8fc866;
+	color: #8fc866;
+	margin: 0.5rem;
+}
+
+.edit-btn:hover {
+	background-color: #8fc866;
+	color: #ffffff;
+}
+
+.add-btn {
+	border-color: #23415a;
+	color: #23415a;
+}
+
+.add-btn:hover {
+	background-color: #23415a;
+	color: #ffffff;
 }
 
 .main_title,
@@ -44,13 +94,17 @@ h4 {
 	box-shadow: 4px 4px 6px 0px rgba(119, 119, 119, 0.6);
 }
 
+.list_item button a {
+	margin-bottom: 1rem;
+}
+
 .list_item_title {
 	text-transform: uppercase;
 	margin-bottom: 0;
 }
 
 .list_item_abrv {
-	margin-bottom: 1.5rem;
+	margin-bottom: 0.5rem;
 	color: #777777;
 	font-weight: 300;
 	text-transform: uppercase;
@@ -76,4 +130,10 @@ h4 {
 .sort_section:focus {
 	outline: none;
 	box-shadow: 2px 2px 2px 0px rgba(119, 119, 119, 0.6);
+}
+
+.msg {
+	text-align: center;
+	margin-top: 4rem;
+	color: #e1332d;
 }

@@ -1,4 +1,5 @@
 import React, { Fragment, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { StoreContext } from '../index';
 import './List.css';
@@ -47,6 +48,9 @@ const List = observer(() => {
 				type="text"
 				className="filter_input"
 			/>
+			<Link to={{ pathname: `/add` }}>
+				<button className="add-btn">Add a vehicle</button>
+			</Link>
 
 			<ul className="list">
 				{store.filtered.map((item) => (
@@ -54,6 +58,25 @@ const List = observer(() => {
 						<h3 className="list_item_title">{item.name}</h3>
 						<div className="list_item_abrv">
 							<span>abrv:</span> {item.abrv}
+						</div>
+						<button>
+							<Link
+								to={{
+									pathname: `/models/${item.id}`,
+									state: {
+										item: item.name,
+										id: item.id
+									}
+								}}
+							>
+								View Models
+							</Link>
+						</button>
+						<div>
+							<button className="edit-btn">Edit</button>
+							<button className="delete-btn" onClick={() => store.onDelete(item.id)}>
+								Delete
+							</button>
 						</div>
 					</li>
 				))}

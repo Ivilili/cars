@@ -7,12 +7,10 @@ import { StoreContext } from './index';
 const App = observer(() => {
 	const store = useContext(StoreContext);
 
-	useEffect(
-		() => {
-			store.fetchData();
-		},
-		[ store ]
-	);
+	useEffect(() => {
+		store.fetchData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const paginate = (pageNumber) => {
 		store.currentPage = pageNumber;
@@ -21,8 +19,6 @@ const App = observer(() => {
 	const indexOfLastCar = store.currentPage * store.carsPerPage;
 	const indexOfFirstCar = indexOfLastCar - store.carsPerPage;
 	const currentCars = store.data.slice(indexOfFirstCar, indexOfLastCar);
-
-	console.log(currentCars);
 
 	return (
 		<Fragment>

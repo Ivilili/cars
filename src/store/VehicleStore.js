@@ -8,15 +8,24 @@ class VehicleStore {
 	currentPage = 1;
 	carsPerPage = 8;
 
-	async fetchData() {
-		const myData = await firebase.firestore().collection('VehicleMake').get();
-		runInAction(() => {
-			this.data = myData.docs.map((doc) => ({
-				id: doc.id,
-				...doc.data()
-			}));
+	fetchData = async () => {
+		firebase.firestore().collection('VehicleMake').onSnapshot((querySnapshot) => {
+			let docs = [];
+			querySnapshot.forEach((doc) => {
+				docs.push({ ...doc.data(), id: doc.id });
+			});
+			runInAction(() => {
+				this.data = docs;
+			});
 		});
-	}
+	};
+
+	onDelete = async (id) => {
+		await firebase.firestore().collection('VehicleMake').doc(id).delete().catch((err) => {
+			console.error(err);
+		});
+		console.log('car deleted');
+	};
 
 	get filtered() {
 		const items = this.data.filter((item) => {
@@ -39,7 +48,8 @@ decorate(VehicleStore, {
 	search: observable,
 	currentPage: observable,
 	carsPerPage: observable,
-	fetchData: action
+	fetchData: action,
+	onDelete: action
 });
 
 const storeInstance = new VehicleStore();
