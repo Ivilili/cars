@@ -6,7 +6,7 @@ class VehicleStore {
 	search = '';
 
 	currentPage = 1;
-	carsPerPage = 8;
+	carsPerPage = 10;
 
 	fetchData = async () => {
 		firebase.firestore().collection('VehicleMake').onSnapshot((querySnapshot) => {
@@ -25,6 +25,13 @@ class VehicleStore {
 			console.error(err);
 		});
 		console.log('car deleted');
+	};
+
+	onEdit = async (updatedCar) => {
+		await firebase.firestore().collection('VehicleMake').doc(updatedCar.id).update(updatedCar).catch((err) => {
+			console.error(err);
+		});
+		console.log('car updated');
 	};
 
 	get filtered() {

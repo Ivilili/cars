@@ -1,13 +1,10 @@
 import React, { Fragment, useState } from 'react';
-//import { StoreContext } from '../index';
 import { Link } from 'react-router-dom';
 import firebase from '../utilities/firebase';
 
 import './AddVehicle.css';
 
 const AddVehicle = () => {
-	//const store = useContext(StoreContext);
-
 	const [ name, setName ] = useState('');
 	const [ abrv, setAbrv ] = useState('');
 

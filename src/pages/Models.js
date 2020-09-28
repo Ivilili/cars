@@ -28,8 +28,6 @@ const Models = (props) => {
 		// eslint-disable-next-line
 	}, []);
 
-	if (activeVehicle.length === 0) return 'Coming soon';
-
 	return (
 		<Fragment>
 			<Link to={{ pathname: `/` }}>Back to Home</Link>

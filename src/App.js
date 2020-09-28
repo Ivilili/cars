@@ -18,7 +18,7 @@ const App = observer(() => {
 
 	const indexOfLastCar = store.currentPage * store.carsPerPage;
 	const indexOfFirstCar = indexOfLastCar - store.carsPerPage;
-	const currentCars = store.data.slice(indexOfFirstCar, indexOfLastCar);
+	const currentCars = store.filtered.slice(indexOfFirstCar, indexOfLastCar);
 
 	return (
 		<Fragment>

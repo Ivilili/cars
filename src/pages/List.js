@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { StoreContext } from '../index';
 import './List.css';
 
-const List = observer(() => {
+const List = observer((props) => {
 	const store = useContext(StoreContext);
 
 	const onChange = (e) => {
@@ -53,7 +53,7 @@ const List = observer(() => {
 			</Link>
 
 			<ul className="list">
-				{store.filtered.map((item) => (
+				{props.cars.map((item) => (
 					<li className="list_item" key={item.id}>
 						<h3 className="list_item_title">{item.name}</h3>
 						<div className="list_item_abrv">
@@ -73,7 +73,6 @@ const List = observer(() => {
 							</Link>
 						</button>
 						<div>
-							<button className="edit-btn">Edit</button>
 							<button className="delete-btn" onClick={() => store.onDelete(item.id)}>
 								Delete
 							</button>
