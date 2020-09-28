@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from '../utilities/firebase';
-import './Models.css';
+import './List.css';
 
 const Models = (props) => {
 	const [ activeVehicle, setActiveVehicle ] = useState([]);
@@ -34,7 +34,7 @@ const Models = (props) => {
 			<h1 className="models-title">{props.location.state.item} models</h1>
 
 			{activeVehicle.map((model) => (
-				<ul className="list">
+				<ul className="model_list">
 					<li className="list_item" key={model.id}>
 						<h3 className="list_item_title">{model.model}</h3>
 						<div className="list_item_abrv">
