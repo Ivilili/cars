@@ -1,68 +1,57 @@
-import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
-import firebase from '../utilities/firebase';
-
+import React, { useContext, useState } from 'react';
+import { StoreContext } from '../index';
+import { observer } from 'mobx-react';
 import './AddVehicle.css';
 
-const AddVehicle = () => {
-	const [ name, setName ] = useState('');
-	const [ abrv, setAbrv ] = useState('');
+const AddVehicle = observer(() => {
+	const store = useContext(StoreContext);
 
-	const onCreate = (e) => {
-		e.preventDefault(e);
-		firebase
-			.firestore()
-			.collection('VehicleMake')
-			.add({
-				name,
-				abrv
-			})
-			.then(function() {
-				alert('Vehicle successfully added!');
-			})
-			.catch(function(error) {
-				console.error('Error: ', error);
-			});
+	const formDate = {
+		name: '',
+		abrv: ''
+	};
+
+	const [ values, setValues ] = useState(formDate);
+
+	const onChangeInput = (e) => {
+		const { name, value } = e.target;
+		setValues({ ...values, [name]: value });
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		store.onCreate(values);
+		setValues({ ...formDate });
 	};
 
 	return (
-		<Fragment>
-			<div className="container">
-				<h1>Add a Vehicle</h1>
-				<form className="add-form" onSubmit={onCreate}>
-					<div className="form-group">
-						<input
-							id="name"
-							type="text"
-							value={name}
-							placeholder="Name"
-							onChange={(e) => {
-								setName(e.target.value);
-							}}
-						/>
-					</div>
-					<div className="form-group">
-						<input
-							id="abrv"
-							type="text"
-							value={abrv}
-							placeholder="Abrv"
-							onChange={(e) => {
-								setAbrv(e.target.value);
-							}}
-						/>
-					</div>
-
-					<button className="save-btn" type="submit">
-						Save
-					</button>
-					<Link className="return-home-link" to={{ pathname: `/` }}>
-						Return Home
-					</Link>
-				</form>
+		<form className="add-form" onSubmit={handleSubmit}>
+			<div className="form-group">
+				<input
+					id="name"
+					type="text"
+					name="name"
+					value={values.name}
+					placeholder="Name"
+					onChange={onChangeInput}
+				/>
 			</div>
-		</Fragment>
+			<div className="form-group">
+				<input
+					id="abrv"
+					type="text"
+					name="abrv"
+					value={values.abrv}
+					placeholder="Abrv"
+					onChange={onChangeInput}
+				/>
+			</div>
+			<button className="save-btn" type="submit">
+				Add Vehicle
+			</button>
+		</form>
 	);
-};
+});
 
 export default AddVehicle;

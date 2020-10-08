@@ -1,29 +1,38 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
 import { observer } from 'mobx-react';
+import { StoreContext } from './index';
 import List from './pages/List';
 import Pagination from './components/Pagination';
-import { StoreContext } from './index';
+import Header from './components/Header';
 
 const App = observer(() => {
 	const store = useContext(StoreContext);
 
 	useEffect(() => {
 		store.fetchData();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line
 	}, []);
 
-	const paginate = (pageNumber) => {
-		store.currentPage = pageNumber;
+	const onChange = (e) => {
+		e.preventDefault();
+		store.search = e.target.value;
 	};
 
-	const indexOfLastCar = store.currentPage * store.carsPerPage;
-	const indexOfFirstCar = indexOfLastCar - store.carsPerPage;
-	const currentCars = store.filtered.slice(indexOfFirstCar, indexOfLastCar);
+	const handleSort = (value) => {
+		if (value === 'asc') {
+			const AscCars = store.filtered.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
+			store.data = AscCars;
+		} else if (value === 'desc') {
+			const DescCars = store.filtered.slice().sort((a, b) => (a.name < b.name ? 1 : -1));
+			store.data = DescCars;
+		}
+	};
 
 	return (
 		<Fragment>
-			<List cars={currentCars} />
-			<Pagination carsPerPage={store.carsPerPage} totalCars={store.totalCars} paginate={paginate} />
+			<Header onChange={onChange} handleSort={handleSort} />
+			<List />
+			<Pagination />
 		</Fragment>
 	);
 });

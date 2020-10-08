@@ -1,17 +1,23 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { StoreContext } from '../index';
 import firebase from '../utilities/firebase';
 import './List.css';
 
-const Models = (props) => {
-	const [ activeVehicle, setActiveVehicle ] = useState([]);
-	const vehicleId = props.location.state.id;
+const Models = observer((props) => {
+	const store = useContext(StoreContext);
+
+	useEffect(() => {
+		getModels();
+		// eslint-disable-next-line
+	}, []);
 
 	const getModels = async () => {
-		firebase
+		await firebase
 			.firestore()
 			.collection('VehicleMake')
-			.doc(vehicleId)
+			.doc(props.location.state.id)
 			.collection('models')
 			.get()
 			.then((querySnapshot) => {
@@ -19,22 +25,14 @@ const Models = (props) => {
 				querySnapshot.forEach((doc) => {
 					models.push({ ...doc.data(), id: doc.id });
 				});
-				setActiveVehicle(models);
+				store.activeVehicle = models;
 			});
 	};
 
-	useEffect(() => {
-		getModels();
-		// eslint-disable-next-line
-	}, []);
-
 	return (
 		<Fragment>
-			<Link to={{ pathname: `/` }}>Back to Home</Link>
-			<h1 className="models-title">{props.location.state.item} models</h1>
-
-			{activeVehicle.map((model) => (
-				<ul className="model_list">
+			<ul className="model_list">
+				{store.activeVehicle.map((model) => (
 					<li className="list_item" key={model.id}>
 						<h3 className="list_item_title">{model.model}</h3>
 						<div className="list_item_abrv">
@@ -43,11 +41,29 @@ const Models = (props) => {
 						<div className="list_item_abrv">
 							<span>horsepower:</span> {model.horsepower}
 						</div>
+						<div>
+							<Link
+								to={{
+									pathname: `/edit`,
+									state: {
+										model: model.model,
+										abrv: model.make,
+										horsepower: model.horsepower,
+										id: model.id
+									}
+								}}
+							>
+								<button className="edit-btn">Edit</button>
+							</Link>
+							<button className="delete-btn" onClick={() => store.onDelete(model.id)}>
+								Delete
+							</button>
+						</div>
 					</li>
-				</ul>
-			))}
+				))}
+			</ul>
 		</Fragment>
 	);
-};
+});
 
 export default Models;

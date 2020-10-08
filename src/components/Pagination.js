@@ -1,24 +1,17 @@
-import React from 'react';
-import './Pagination.css';
+import React, { useContext } from 'react';
+import { StoreContext } from '../index';
 
-const Pagination = ({ carsPerPage, totalCars, paginate }) => {
-	const pageNumbers = [];
-
-	for (let i = 1; i <= Math.ceil(totalCars / carsPerPage); i++) {
-		pageNumbers.push(i);
-	}
+const Pagination = () => {
+	const store = useContext(StoreContext);
 	return (
-		<nav>
-			<ul className="pagination">
-				{pageNumbers.map((number) => (
-					<li key={number} className="page-item">
-						<button onClick={() => paginate(number)} className="page-btn">
-							{number}
-						</button>
-					</li>
-				))}
-			</ul>
-		</nav>
+		<div className="pagination">
+			<button className="page-btn" onClick={() => store.previousPage(store.firstVisible)}>
+				&#8592; Previous Page
+			</button>
+			<button className="page-btn" onClick={() => store.nextPage(store.cursor)}>
+				Next Page &#8594;
+			</button>
+		</div>
 	);
 };
 
