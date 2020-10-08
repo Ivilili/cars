@@ -21,7 +21,7 @@ const AddVehicle = observer(() => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		store.onCreate(values);
+		store.onCreateOrEdit(values);
 		setValues({ ...formDate });
 	};
 
@@ -48,7 +48,7 @@ const AddVehicle = observer(() => {
 				/>
 			</div>
 			<button className="save-btn" type="submit">
-				Add Vehicle
+				{store.currentId === '' ? 'Add Vehicle' : 'Update Vehicle'}
 			</button>
 		</form>
 	);

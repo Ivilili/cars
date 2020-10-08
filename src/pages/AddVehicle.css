@@ -1,4 +1,4 @@
-.add-form {
+form {
 	display: flex;
 	flex-direction: column;
 	max-width: 260px;
@@ -13,12 +13,27 @@
 	padding: 1rem;
 	box-shadow: 4px 4px 4px 0px rgba(119, 119, 119, 0.6);
 	border-radius: 2px;
+}
+
+.edit-form {
+	height: 260px;
+	padding: 1.5rem;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 3rem;
+}
+.add-form {
 	position: absolute;
 	top: 0.5rem;
 	right: 1rem;
 }
 
-.add-form:hover {
+.add-form:hover,
+.edit-form:hover {
 	box-shadow: 8px 6px 12px 4px rgba(119, 119, 119, 0.6);
 }
 
@@ -39,12 +54,14 @@
 	background-color: #1c3448;
 }
 
-.add-form input {
+.add-form input,
+.edit-form input {
 	width: 260px;
 	height: 30px;
 	margin-bottom: 1rem;
 }
 
-.add-form input:focus {
+.add-form input:focus,
+.edit-form input:focus {
 	outline: none;
 }

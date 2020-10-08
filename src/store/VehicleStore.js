@@ -11,23 +11,21 @@ class VehicleStore {
 	cursor = null;
 	firstVisible = null;
 
-	onCreate = async (dataObject) => {
+	onCreateOrEdit = async (dataObject) => {
 		try {
 			if (this.currentId === '') {
 				await firebase.firestore().collection('VehicleMake').doc().set(dataObject);
 				alert('Vehicle successfully added!');
+			} else {
+				await firebase.firestore().collection('VehicleMake').doc(this.currentId).update(dataObject);
+				alert('Vehicle successfully updated!');
+				runInAction(() => {
+					this.currentId = '';
+				});
 			}
 		} catch (error) {
 			console.error(error);
 		}
-	};
-
-	onEdit = async (dataObject) => {
-		await firebase.firestore().collection('VehicleMake').doc(this.currentId).update(dataObject);
-		alert('Vehicle successfully updated!');
-		runInAction(() => {
-			this.currentId = '';
-		});
 	};
 
 	fetchData = () => {

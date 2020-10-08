@@ -28,20 +28,9 @@ const List = observer(() => {
 							<button className="view-models">View Models</button>
 						</Link>
 						<div>
-							<Link
-								to={{
-									pathname: `/edit`,
-									state: {
-										item: item.name,
-										abrv: item.abrv,
-										id: item.id
-									}
-								}}
-							>
-								<button className="edit-btn" onClick={() => store.getId(item.id)}>
-									Edit
-								</button>
-							</Link>
+							<button className="edit-btn" onClick={() => store.getId(item.id)}>
+								Edit
+							</button>
 							<button className="delete-btn" onClick={() => store.onDelete(item.id)}>
 								Delete
 							</button>
