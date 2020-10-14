@@ -1,5 +1,5 @@
 import React from 'react';
-import storeInstance from '../store/VehicleStore';
+import storeInstance from '../services/VehicleStore';
 
 const Header = () => {
 	return (

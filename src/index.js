@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Switch, Route } from 'react-router-dom';
-import { withRouter } from 'react-router';
 import ViewVehicle from './pages/ViewVehicle';
 import ViewModels from './pages/ViewModels';
 import { syncHistoryWithStore } from 'mobx-react-router';
 import { createBrowserHistory } from 'history';
-import storeInstance from './store/VehicleStore';
-import vehicleModelStore from './store/VehicleModelStore';
-import routingStore from './store/RouterStore';
+import storeInstance from './services/VehicleStore';
+import vehicleModelStore from './services/VehicleModelStore';
+import routingStore from './services/RouterStore';
 
 const stores = {
 	storeInstance,
@@ -27,7 +26,7 @@ ReactDOM.render(
 			<Router history={history}>
 				<Switch>
 					<Route exact path="/" component={ViewVehicle} />
-					<Route exact path="/:id" component={withRouter(ViewModels)} />
+					<Route exact path="/:id" component={ViewModels} />
 				</Switch>
 			</Router>
 		</StoreContext.Provider>

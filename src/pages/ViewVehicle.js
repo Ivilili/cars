@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import ListVehicles from './../components/ListVehicles';
 import Pagination from './../components/Pagination';
 import Header from './../components/Header';
-import storeInstance from '../store/VehicleStore';
+import storeInstance from '../services/VehicleStore';
 import '../styles/main.css';
 import AddVehicleForm from '../components/AddVehicleForm';
 

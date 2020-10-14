@@ -69,3 +69,8 @@ form {
 .edit-form select:focus {
 	outline: none;
 }
+
+select,
+option {
+	margin-left: -0.5rem;
+}

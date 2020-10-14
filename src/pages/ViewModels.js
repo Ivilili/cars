@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import ListModels from '../components/ListModels';
 import AddModelForm from '../components/AddModelForm';
-import vehicleModelStore from '../store/VehicleModelStore';
-import storeInstance from '../store/VehicleStore';
-import routingStore from '../store/RouterStore';
+import vehicleModelStore from '../services/VehicleModelStore';
+import storeInstance from '../services/VehicleStore';
+import routingStore from '../services/RouterStore';
 import '../styles/main.css';
 
 class ViewModels extends React.Component {

@@ -113,10 +113,6 @@ class VehicleStore {
 		if (items.length) return items;
 		return this.data;
 	}
-
-	get allVehicleNames() {
-		return this.data.map((d) => d.name);
-	}
 }
 
 decorate(VehicleStore, {

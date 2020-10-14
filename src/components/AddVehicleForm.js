@@ -1,9 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import storeInstance from '../store/VehicleStore';
+import storeInstance from '../services/VehicleStore';
 import '../styles/form.css';
 
-const AddVehicleForm = observer(({ submit, values, change }) => {
+const AddVehicleForm = observer(({ submit, change, values }) => {
 	return (
 		<form className="add-form" onSubmit={submit}>
 			<div className="form-group">
