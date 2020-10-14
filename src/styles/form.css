@@ -55,13 +55,17 @@ form {
 }
 
 .add-form input,
-.edit-form input {
+.edit-form input,
+.add-form select,
+.edit-form select {
 	width: 260px;
 	height: 30px;
 	margin-bottom: 1rem;
 }
 
 .add-form input:focus,
-.edit-form input:focus {
+.edit-form input:focus,
+.add-form select:focus,
+.edit-form select:focus {
 	outline: none;
 }

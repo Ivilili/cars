@@ -5,29 +5,12 @@ class VehicleStore {
 	data = [];
 	search = '';
 	currentId = '';
-	activeVehicle = [];
 	currentPage = 1;
 	carsPerPage = 8;
 	cursor = null;
 	firstVisible = null;
 
-	onCreateOrEdit = async (dataObject) => {
-		try {
-			if (this.currentId === '') {
-				await firebase.firestore().collection('VehicleMake').doc().set(dataObject);
-				alert('Vehicle successfully added!');
-			} else {
-				await firebase.firestore().collection('VehicleMake').doc(this.currentId).update(dataObject);
-				alert('Vehicle successfully updated!');
-				runInAction(() => {
-					this.currentId = '';
-				});
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
+	//get data
 	fetchData = () => {
 		firebase
 			.firestore()
@@ -53,7 +36,32 @@ class VehicleStore {
 			});
 		}
 	};
+	//create or edit data
+	onCreateOrEdit = async (dataObject) => {
+		try {
+			if (this.currentId === '') {
+				await firebase.firestore().collection('VehicleMake').doc().set(dataObject);
+				alert('Vehicle successfully added!');
+			} else {
+				await firebase.firestore().collection('VehicleMake').doc(this.currentId).update(dataObject);
+				alert('Vehicle successfully updated!');
+				runInAction(() => {
+					this.currentId = '';
+				});
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
+	//delete data by id
+	onDelete = async (id) => {
+		await firebase.firestore().collection('VehicleMake').doc(id).delete().catch((err) => {
+			console.error(err);
+		});
+	};
+
+	//paging
 	nextPage = (cursor) => {
 		let next = firebase
 			.firestore()
@@ -74,16 +82,27 @@ class VehicleStore {
 		prev.onSnapshot(this.handleSnapshot);
 	};
 
-	onDelete = async (id) => {
-		await firebase.firestore().collection('VehicleMake').doc(id).delete().catch((err) => {
-			console.error(err);
-		});
-	};
+	//sort data
+	handleSort(value) {
+		if (value === 'asc') {
+			const AscCars = this.filtered.slice().sort((a, b) => (a.name > b.name ? 1 : -1));
+			this.data = AscCars;
+		} else if (value === 'desc') {
+			const DescCars = this.filtered.slice().sort((a, b) => (a.name < b.name ? 1 : -1));
+			this.data = DescCars;
+		}
+	}
 
 	getId = (id) => {
 		this.currentId = id;
 	};
 
+	onChange = (e) => {
+		e.preventDefault();
+		this.search = e.target.value;
+	};
+
+	//filter data
 	get filtered() {
 		const items = this.data.filter((item) => {
 			return (
@@ -94,6 +113,10 @@ class VehicleStore {
 		if (items.length) return items;
 		return this.data;
 	}
+
+	get allVehicleNames() {
+		return this.data.map((d) => d.name);
+	}
 }
 
 decorate(VehicleStore, {
@@ -102,7 +125,12 @@ decorate(VehicleStore, {
 	currentPage: observable,
 	carsPerPage: observable,
 	fetchData: action,
-	onDelete: action
+	onDelete: action,
+	previousPage: action,
+	nextPage: action,
+	handleSnapshot: action,
+	onCreateOrEdit: action,
+	handleSort: action
 });
 
 const storeInstance = new VehicleStore();
