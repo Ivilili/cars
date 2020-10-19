@@ -11,6 +11,10 @@ class VehicleModelStore {
 	setFormValues(formValues) {
 		this.formValues = formValues;
 	}
+	handleSubmitEdit = (e) => {
+		e.preventDefault();
+		vehicleModelService.onEditModel(this.formValues);
+	};
 
 	//form input
 	onChangeInput = (e) => {
@@ -20,15 +24,19 @@ class VehicleModelStore {
 	//form data submit
 	handleSubmit = (e) => {
 		e.preventDefault();
-		vehicleModelService.onCreateOrEditModel(this.formValues);
+		vehicleModelService.onCreateModel(this.formValues);
 	};
 
 	getModels() {
 		vehicleModelService.getModels();
 	}
 
-	onCreateOrEditModel(dataObject) {
-		vehicleModelService.onCreateOrEditModel(dataObject);
+	onCreateModel(dataObject) {
+		vehicleModelService.onCreateModel(dataObject);
+	}
+
+	onEditModel(dataObject) {
+		vehicleModelService.onEditModel(dataObject);
 	}
 	onDeleteModel(id) {
 		vehicleModelService.onDeleteModel(id);
@@ -39,7 +47,8 @@ decorate(VehicleModelStore, {
 	activeVehicle: observable,
 	formValues: observable,
 	getModels: action,
-	onCreateOrEditModel: action,
+	onCreateModel: action,
+	onEditModel: action,
 	onDeleteModel: action,
 	handleClick: action,
 	handleSubmit: action

@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { StoreContext } from '../index';
 
-const AddModelForm = observer(() => {
+const EditModelForm = observer(() => {
 	const store = useContext(StoreContext);
+	console.log(store.routingStore.history.location.state.makeId);
 
 	return (
 		<div className="container">
-			<h2> Add New Model</h2>
-			<form className="add-form" onSubmit={store.vehicleModelStore.handleSubmit}>
+			<h2> Edit Model</h2>
+			<form className="add-form" onSubmit={store.vehicleModelStore.handleSubmitEdit}>
 				<div className="form-group">
 					<input
 						id="model"
@@ -45,7 +46,7 @@ const AddModelForm = observer(() => {
 					/>
 				</div>
 				<button className="save-btn" type="submit">
-					Add Model
+					Edit Model
 				</button>
 				<Link to={{ pathname: '/' }} className="return-home-link">
 					Return Home
@@ -55,4 +56,4 @@ const AddModelForm = observer(() => {
 	);
 });
 
-export default withRouter(AddModelForm);
+export default withRouter(EditModelForm);

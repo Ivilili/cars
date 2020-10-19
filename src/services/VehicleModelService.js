@@ -21,27 +21,32 @@ class VehicleModelService {
 			});
 	};
 
-	//create or edit a model
-	onCreateOrEditModel = async (dataObject) => {
+	//onCreate model
+	onCreateModel = async (dataObject) => {
 		try {
-			if (storeInstance.currentId === '') {
-				await firebase
-					.firestore()
-					.collection('VehicleMake')
-					.doc(routingStore.history.location.state.id)
-					.collection('models')
-					.add(dataObject);
-				alert('Model successfully added!');
-			} else {
-				await firebase
-					.firestore()
-					.collection('VehicleMake')
-					.doc(routingStore.history.location.state.id)
-					.collection('models')
-					.doc(storeInstance.currentId)
-					.update(dataObject);
-				alert('Vehicle successfully updated!');
-			}
+			await firebase
+				.firestore()
+				.collection('VehicleMake')
+				.doc(routingStore.history.location.state.makeId)
+				.collection('models')
+				.add(dataObject);
+			alert('Model successfully added!');
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	//onEditModel
+	onEditModel = async (dataObject) => {
+		try {
+			await firebase
+				.firestore()
+				.collection('VehicleMake')
+				.doc(routingStore.history.location.state.makeId)
+				.collection('models')
+				.doc(storeInstance.currentId)
+				.update(dataObject);
+			alert('Vehicle successfully updated!');
 		} catch (error) {
 			console.error(error);
 		}

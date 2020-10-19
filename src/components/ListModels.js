@@ -2,11 +2,15 @@ import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { StoreContext } from '../index';
+import { withRouter } from 'react-router';
 import '../styles/main.css';
 //import AddModelForm from './AddModelForm';
 
 const ListModels = observer(() => {
 	const store = useContext(StoreContext);
+
+	//console.log(store.routingStore.history.location.state);
+	let makeId = store.routingStore.history.location.state.id;
 
 	const handleClick = (id) => {
 		store.storeInstance.currentId = id;
@@ -14,7 +18,12 @@ const ListModels = observer(() => {
 
 	return (
 		<div className="wrapper">
-			<Link to={{ pathname: '/addOrEditModel' }}>
+			<Link
+				to={{
+					pathname: '/addModel',
+					state: { makeId: makeId }
+				}}
+			>
 				<button className="new-model-btn">Add new model</button>
 			</Link>
 
@@ -31,11 +40,12 @@ const ListModels = observer(() => {
 						<div>
 							<Link
 								to={{
-									pathname: '/addOrEditModel',
+									pathname: '/editModel',
 									state: {
 										model: model.model,
 										make: model.make,
-										id: model.id
+										id: model.id,
+										makeId: makeId
 									}
 								}}
 							>
@@ -57,4 +67,4 @@ const ListModels = observer(() => {
 	);
 });
 
-export default ListModels;
+export default withRouter(ListModels);

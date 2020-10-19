@@ -10,6 +10,7 @@ import vehicleModelStore from './stores/VehicleModelStore';
 import routingStore from './stores/RouterStore';
 import AddVehicleForm from './components/AddVehicleForm';
 import AddModelForm from './components/AddModelForm';
+import EditModelForm from './components/EditModelForm';
 
 const stores = {
 	storeInstance,
@@ -30,7 +31,8 @@ ReactDOM.render(
 					<Route exact path="/" component={ViewVehicle} />
 					<Route path="/addOrEdit" component={AddVehicleForm} />
 					<Route exact path="/models/:id" component={ViewModels} />
-					<Route path="/addOrEditModel" component={AddModelForm} />
+					<Route path="/addModel" component={AddModelForm} />
+					<Route path="/editModel" component={EditModelForm} />
 				</Switch>
 			</Router>
 		</StoreContext.Provider>
