@@ -9,6 +9,9 @@ class VehicleModelStore {
 		horsepower: ''
 	};
 	filter = '';
+	modelsPerPage = 2;
+	lastVisible = null;
+	firstVisible = null;
 	setFormValues(formValues) {
 		this.formValues = formValues;
 	}
@@ -65,12 +68,21 @@ class VehicleModelStore {
 	onDeleteModel(id) {
 		vehicleModelService.onDeleteModel(id);
 	}
+	nextModelPage(lastVisible) {
+		vehicleModelService.nextModelPage(lastVisible);
+	}
+	previousModelPage(firstVisible) {
+		vehicleModelService.previousModelPage(firstVisible);
+	}
 }
 
 decorate(VehicleModelStore, {
 	activeVehicle: observable,
 	formValues: observable,
 	filter: observable,
+	modelsPerPage: observable,
+	lastVisible: observable,
+	firstVisible: observable,
 	getModels: action,
 	onCreateModel: action,
 	onEditModel: action,
@@ -78,6 +90,8 @@ decorate(VehicleModelStore, {
 	handleClick: action,
 	handleSubmit: action,
 	handleModelSort: action,
+	nextModelPage: action,
+	previousModelPage: action,
 	filteredModels: computed
 });
 

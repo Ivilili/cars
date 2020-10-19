@@ -5,6 +5,7 @@ import ListModels from '../components/ListModels';
 import { StoreContext } from '../index';
 import '../styles/main.css';
 import FilterSortModels from '../components/FilterSortModels';
+import ModelPagination from '../components/ModelPagination';
 
 function ViewModels() {
 	const store = useContext(StoreContext);
@@ -22,6 +23,7 @@ function ViewModels() {
 			<h2 className="models-title"> {store.routingStore.history.location.state.item} Models</h2>
 			<FilterSortModels store={store} />
 			<ListModels store={store} />
+			<ModelPagination store={store} />
 		</div>
 	);
 }
