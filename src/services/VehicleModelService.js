@@ -1,11 +1,9 @@
-import { action, decorate, observable } from 'mobx';
 import firebase from '../utilities/firebase';
-import routingStore from './RouterStore';
-import storeInstance from './VehicleStore';
+import routingStore from '../stores/RouterStore';
+import storeInstance from '../stores/VehicleStore';
+import vehicleModelStore from '../stores/VehicleModelStore';
 
-class VehicleModelStore {
-	activeVehicle = [];
-
+class VehicleModelService {
 	//get models
 	getModels = async () => {
 		await firebase
@@ -19,7 +17,7 @@ class VehicleModelStore {
 				querySnapshot.forEach((doc) => {
 					models.push({ ...doc.data(), id: doc.id });
 				});
-				this.activeVehicle = models;
+				vehicleModelStore.activeVehicle = models;
 			});
 	};
 
@@ -48,7 +46,6 @@ class VehicleModelStore {
 			console.error(error);
 		}
 	};
-
 	//delete model
 	onDeleteModel = async (id) => {
 		await firebase
@@ -67,12 +64,5 @@ class VehicleModelStore {
 	};
 }
 
-decorate(VehicleModelStore, {
-	models: observable,
-	activeVehicle: observable,
-	getModels: action,
-	onCreateOrEditModel: action
-});
-
-const vehicleModelStore = new VehicleModelStore();
-export default vehicleModelStore;
+const vehicleModelService = new VehicleModelService();
+export default vehicleModelService;

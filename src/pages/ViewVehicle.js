@@ -1,40 +1,26 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useContext } from 'react';
+import { observer } from 'mobx-react';
 import ListVehicles from './../components/ListVehicles';
 import Pagination from './../components/Pagination';
 import Header from './../components/Header';
-import storeInstance from '../services/VehicleStore';
+import { StoreContext } from '../index';
 import '../styles/main.css';
-import AddVehicleForm from '../components/AddVehicleForm';
 
-class ViewVehicle extends React.Component {
-	state = {
-		name: '',
-		abrv: ''
-	};
-	componentDidMount() {
-		storeInstance.fetchData();
-	}
+function ViewVehicle() {
+	const store = useContext(StoreContext);
 
-	onChangeInput = (e) => {
-		const { name, value } = e.target;
-		this.setState({ ...this.state, [name]: value });
-	};
+	useEffect(() => {
+		store.storeInstance.fetchData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-		storeInstance.onCreateOrEdit(this.state);
-	};
-
-	render() {
-		return (
-			<Fragment>
-				<Header />
-				<AddVehicleForm values={this.state} submit={this.handleSubmit} change={this.onChangeInput} />
-				<ListVehicles />
-				<Pagination />
-			</Fragment>
-		);
-	}
+	return (
+		<Fragment>
+			<Header store={store} />
+			<ListVehicles store={store} />
+			<Pagination store={store} />
+		</Fragment>
+	);
 }
 
-export default ViewVehicle;
+export default observer(ViewVehicle);

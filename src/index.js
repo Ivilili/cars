@@ -5,9 +5,11 @@ import ViewVehicle from './pages/ViewVehicle';
 import ViewModels from './pages/ViewModels';
 import { syncHistoryWithStore } from 'mobx-react-router';
 import { createBrowserHistory } from 'history';
-import storeInstance from './services/VehicleStore';
-import vehicleModelStore from './services/VehicleModelStore';
-import routingStore from './services/RouterStore';
+import storeInstance from './stores/VehicleStore';
+import vehicleModelStore from './stores/VehicleModelStore';
+import routingStore from './stores/RouterStore';
+import AddVehicleForm from './components/AddVehicleForm';
+import AddModelForm from './components/AddModelForm';
 
 const stores = {
 	storeInstance,
@@ -26,7 +28,9 @@ ReactDOM.render(
 			<Router history={history}>
 				<Switch>
 					<Route exact path="/" component={ViewVehicle} />
-					<Route exact path="/:id" component={ViewModels} />
+					<Route path="/addOrEdit" component={AddVehicleForm} />
+					<Route exact path="/models/:id" component={ViewModels} />
+					<Route path="/addOrEditModel" component={AddModelForm} />
 				</Switch>
 			</Router>
 		</StoreContext.Provider>

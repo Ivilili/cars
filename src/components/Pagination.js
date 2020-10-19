@@ -1,8 +1,6 @@
-import React, { useContext } from 'react';
-import { StoreContext } from '../index';
+import React from 'react';
 
-const Pagination = () => {
-	const store = useContext(StoreContext);
+const Pagination = ({ store }) => {
 	return (
 		<div className="pagination">
 			<button

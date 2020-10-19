@@ -26,11 +26,6 @@ form {
 	align-items: center;
 	margin-top: 3rem;
 }
-.add-form {
-	position: absolute;
-	top: 0.5rem;
-	right: 1rem;
-}
 
 .add-form:hover,
 .edit-form:hover {

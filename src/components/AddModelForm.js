@@ -1,56 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import storeInstance from '../services/VehicleStore';
-import routingStore from '../services/RouterStore';
-const AddModelForm = observer(({ handleSubmit, models, onChangeInput }) => {
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
+import { StoreContext } from '../index';
+
+const AddModelForm = observer(() => {
+	const store = useContext(StoreContext);
+
 	return (
-		<form className="add-form" onSubmit={handleSubmit}>
-			<div className="form-group">
-				<input
-					id="model"
-					type="text"
-					name="model"
-					value={models.model}
-					placeholder="Model"
-					onChange={onChangeInput}
-					required
-				/>
-			</div>
-			<div className="form-group">
-				<input
-					id="make"
-					type="text"
-					name="make"
-					defaultValue={routingStore.history.location.state.item}
-					onChange={onChangeInput}
-					required
-				/>
-			</div>
-			<div className="form-group">
-				<input
-					id="horsepower"
-					type="number"
-					name="horsepower"
-					value={models.horsepower}
-					placeholder="Horsepower"
-					onChange={onChangeInput}
-					required
-				/>
-			</div>
-			{/* <div className="form-group">
-				<select name="make" id="vehicle-make" value={storeInstance.vehicleName} onChange={onChangeInput}>
-					{storeInstance.vehicleName.map((car, id) => (
-						<option key={id} name="make" value={car} required>
-							{car}
-						</option>
-					))}
-				</select>
-			</div> */}
-			<button className="save-btn" type="submit">
-				{storeInstance.currentId === '' ? 'Add Model' : 'Update Model'}
-			</button>
-		</form>
+		<div className="container">
+			<h2> Add or Edit Model</h2>
+			<form className="add-form" onSubmit={store.vehicleModelStore.handleSubmit}>
+				<div className="form-group">
+					<input
+						id="model"
+						type="text"
+						name="model"
+						value={store.vehicleModelStore.formValues.model}
+						placeholder="Model"
+						onChange={store.vehicleModelStore.onChangeInput}
+						required
+					/>
+				</div>
+				<div className="form-group">
+					<input
+						id="make"
+						type="text"
+						name="make"
+						placeholder="Make"
+						value={store.vehicleModelStore.formValues.make}
+						onChange={store.vehicleModelStore.onChangeInput}
+						required
+					/>
+				</div>
+				<div className="form-group">
+					<input
+						id="horsepower"
+						type="number"
+						name="horsepower"
+						value={store.vehicleModelStore.formValues.horsepower}
+						placeholder="Horsepower"
+						onChange={store.vehicleModelStore.onChangeInput}
+						required
+					/>
+				</div>
+				<button className="save-btn" type="submit">
+					Add/Edit Model
+				</button>
+				<Link to={{ pathname: '/' }} className="return-home-link">
+					Return Home
+				</Link>
+			</form>
+		</div>
 	);
 });
 
-export default AddModelForm;
+export default withRouter(AddModelForm);
