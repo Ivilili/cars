@@ -4,12 +4,10 @@ import { Link } from 'react-router-dom';
 import { StoreContext } from '../index';
 import { withRouter } from 'react-router';
 import '../styles/main.css';
-//import AddModelForm from './AddModelForm';
 
 const ListModels = observer(() => {
 	const store = useContext(StoreContext);
 
-	//console.log(store.routingStore.history.location.state);
 	let makeId = store.routingStore.history.location.state.id;
 
 	const handleClick = (id) => {
@@ -28,7 +26,7 @@ const ListModels = observer(() => {
 			</Link>
 
 			<ul className="model_list">
-				{store.vehicleModelStore.activeVehicle.map((model) => (
+				{store.vehicleModelStore.filteredModels.map((model) => (
 					<li className="list_item" key={model.id}>
 						<h3 className="list_item_title">{model.model}</h3>
 						<div className="list_item_abrv">

@@ -6,7 +6,6 @@ import { StoreContext } from '../index';
 
 const EditModelForm = observer(() => {
 	const store = useContext(StoreContext);
-	console.log(store.routingStore.history.location.state.makeId);
 
 	return (
 		<div className="container">

@@ -38,7 +38,10 @@ h4 {
 .wrapper {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+}
+
+.wrapper a {
+	text-align: center;
 }
 
 .new-model-btn {
@@ -168,10 +171,11 @@ h4 {
 }
 
 .model_list {
-	max-width: 400px;
+	margin: 0;
 	padding: 1rem;
-	display: flex;
-	justify-content: space-evenly;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-gap: 0.5rem;
 }
 
 .pagination {
