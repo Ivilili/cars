@@ -1,21 +1,14 @@
-import React, { useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import { StoreContext } from '../index';
-import { withRouter } from 'react-router';
 import '../styles/main.css';
 
 const ListModels = observer(() => {
 	const store = useContext(StoreContext);
-
 	let makeId = store.routingStore.history.location.state.id;
-
-	const handleClick = (id) => {
-		store.storeInstance.currentId = id;
-	};
-
 	return (
-		<div className="wrapper">
+		<Fragment>
 			<Link
 				to={{
 					pathname: '/addModel',
@@ -47,7 +40,10 @@ const ListModels = observer(() => {
 									}
 								}}
 							>
-								<button className="edit-btn" onClick={() => handleClick(model.id)}>
+								<button
+									className="edit-btn"
+									onClick={() => store.vehicleModelStore.handleClick(model.id)}
+								>
 									Edit
 								</button>
 							</Link>
@@ -61,8 +57,8 @@ const ListModels = observer(() => {
 					</li>
 				))}
 			</ul>
-		</div>
+		</Fragment>
 	);
 });
 
-export default withRouter(ListModels);
+export default ListModels;

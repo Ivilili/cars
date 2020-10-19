@@ -1,13 +1,13 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 import storeInstance from '../stores/VehicleStore';
+import vehicleModelStore from '../stores/VehicleModelStore';
 import '../styles/form.css';
 
 const AddVehicleForm = observer(() => {
 	return (
-		<div className="container">
-			<h2>Add or Edit Vehicle</h2>
+		<div className="form-container">
+			<h2 className="h2">Add or Edit Vehicle</h2>
 			<form className="add-form" onSubmit={storeInstance.handleSubmit}>
 				<div className="form-group">
 					<input
@@ -17,6 +17,7 @@ const AddVehicleForm = observer(() => {
 						value={storeInstance.values.name}
 						placeholder="Name"
 						onChange={storeInstance.onChangeInput}
+						className="form-control"
 						required
 					/>
 				</div>
@@ -28,15 +29,16 @@ const AddVehicleForm = observer(() => {
 						value={storeInstance.values.abrv}
 						placeholder="Abrv"
 						onChange={storeInstance.onChangeInput}
+						className="form-control"
 						required
 					/>
 				</div>
 				<button className="save-btn" type="submit">
 					{storeInstance.currentId === '' ? 'Add Vehicle' : 'Update Vehicle'}
 				</button>
-				<Link to={{ pathname: '/' }} className="return-home-link">
-					Return Home
-				</Link>
+				<button className="back-btn" onClick={vehicleModelStore.goBack}>
+					Back
+				</button>
 			</form>
 		</div>
 	);

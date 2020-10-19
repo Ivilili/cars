@@ -16,12 +16,14 @@ function ViewModels() {
 	}, []);
 
 	return (
-		<div className="models-wrap">
-			<Link className="go-back-link" to={{ pathname: `/` }}>
-				&#8592; Go Back
-			</Link>
-			<h2 className="models-title"> {store.routingStore.history.location.state.item} Models</h2>
-			<FilterSortModels store={store} />
+		<div className="container models-wrap">
+			<div className="jumbotron">
+				<Link className="go-back-link" to={{ pathname: `/` }}>
+					&#8592; Go Back
+				</Link>
+				<h1 className="models-title"> {store.routingStore.history.location.state.item} Models</h1>
+				<FilterSortModels store={store} />
+			</div>
 			<ListModels store={store} />
 			<ModelPagination store={store} />
 		</div>

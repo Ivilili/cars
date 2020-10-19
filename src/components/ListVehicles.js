@@ -9,7 +9,7 @@ const ListVehicles = observer(({ store }) => {
 			<ul className="list">
 				{store.storeInstance.filtered.map((item) => (
 					<li className="list_item" key={item.id}>
-						<h3 className="list_item_title">{item.name}</h3>
+						<h4 className="list_item_title">{item.name}</h4>
 						<div className="list_item_abrv">
 							<span>abrv:</span> {item.abrv}
 						</div>

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { observer } from 'mobx-react';
 import ListVehicles from './../components/ListVehicles';
 import Pagination from './../components/Pagination';
@@ -15,11 +15,11 @@ function ViewVehicle() {
 	}, []);
 
 	return (
-		<Fragment>
+		<div className="container">
 			<Header store={store} />
 			<ListVehicles store={store} />
 			<Pagination store={store} />
-		</Fragment>
+		</div>
 	);
 }
 

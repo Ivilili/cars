@@ -1,5 +1,7 @@
 import { decorate, observable, action, computed } from 'mobx';
 import vehicleModelService from '../services/VehicleModelService';
+import storeInstance from './VehicleStore';
+import routingStore from './RouterStore';
 
 class VehicleModelStore {
 	activeVehicle = [];
@@ -12,9 +14,17 @@ class VehicleModelStore {
 	modelsPerPage = 2;
 	lastVisible = null;
 	firstVisible = null;
+
+	goBack = (e) => {
+		e.preventDefault();
+		routingStore.history.goBack();
+	};
 	setFormValues(formValues) {
 		this.formValues = formValues;
 	}
+	handleClick = (id) => {
+		storeInstance.currentId = id;
+	};
 	handleSubmitEdit = (e) => {
 		e.preventDefault();
 		vehicleModelService.onEditModel(this.formValues);
@@ -92,6 +102,7 @@ decorate(VehicleModelStore, {
 	handleModelSort: action,
 	nextModelPage: action,
 	previousModelPage: action,
+	goBack: action,
 	filteredModels: computed
 });
 

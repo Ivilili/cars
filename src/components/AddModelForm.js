@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
 import { StoreContext } from '../index';
 
 const AddModelForm = observer(() => {
 	const store = useContext(StoreContext);
 
 	return (
-		<div className="container">
+		<div className="form-container">
 			<h2> Add New Model</h2>
 			<form className="add-form" onSubmit={store.vehicleModelStore.handleSubmit}>
 				<div className="form-group">
@@ -47,12 +45,12 @@ const AddModelForm = observer(() => {
 				<button className="save-btn" type="submit">
 					Add Model
 				</button>
-				<Link to={{ pathname: '/' }} className="return-home-link">
-					Return Home
-				</Link>
+				<button className="back-btn" onClick={store.vehicleModelStore.goBack}>
+					Back
+				</button>
 			</form>
 		</div>
 	);
 });
 
-export default withRouter(AddModelForm);
+export default AddModelForm;
